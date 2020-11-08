@@ -1,0 +1,96 @@
+{
+    "<START>": 
+    {
+        "emission": "None", 
+        "transitions": 
+        [
+            {
+                "state": "GEN_A",
+                "prob": 0.25
+            },
+            {
+                "state": "GEN_T",
+                "prob": 0.25
+            },
+            {
+                "state": "GEN_G",
+                "prob": 0.25
+            },
+            {
+                "state": "GEN_C",
+                "prob": 0.25
+            }
+        ]
+    },
+    "GEN_A": 
+    {
+        "emission": "A", 
+        "transitions": 
+        [
+            {
+                "state": "<START>",
+                "prob": 0.8
+            },
+            {
+                "state": "<END>",
+                "prob": 0.2
+            }
+        ]
+    },
+    "GEN_T": 
+    {
+        "emission": "T", 
+        "transitions": 
+        [
+            {
+                "state": "<START>",
+                "prob": 0.8
+            },
+            {
+                "state": "<END>",
+                "prob": 0.2
+            }
+        ]
+    },
+    "GEN_G": 
+    {
+        "emission": "G", 
+        "transitions": 
+        [
+            {
+                "state": "<START>",
+                "prob": 0.8
+            },
+            {
+                "state": "<END>",
+                "prob": 0.2
+            }
+        ]
+    },
+    "GEN_C": 
+    {
+        "emission": "C", 
+        "transitions": 
+        [
+            {
+                "state": "<START>",
+                "prob": 0.8
+            },
+            {
+                "state": "<END>",
+                "prob": 0.2
+            }
+        ]
+    },
+    "<END>":
+    {
+        "emission": "None",
+        "transitions":
+        [
+            {
+                "state": "<END>",
+                "prob": 1.0
+            }
+        ]
+    }
+}
