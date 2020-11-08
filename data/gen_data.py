@@ -106,6 +106,8 @@ def main():
     
     with open(args.output, 'w') as f_out:
         f_out.writelines(generate_data(model=model, num_examples=args.num_examples, seed=args.random_seed))
+    
+    print("Generation successful!")
 
 if __name__ == "__main__":
     main()
