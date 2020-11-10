@@ -1,7 +1,6 @@
 import sys
 import json
 import argparse
-import random 
 import numpy.random as random
 
 def validate_model(model, eps = 1e-10):
@@ -78,7 +77,7 @@ def generate_data(model, num_examples, seed=1000):
                 probs.append(trans["prob"])
             # updates current state
             cur_state = random.choice(states, p=probs)
-        output.append(example_output + "\n")
+        output.append(example_output)
     return output
             
 
@@ -104,8 +103,10 @@ def main():
         return
 
     
+    examples = generate_data(model=model, num_examples=args.num_examples, seed=args.random_seed)
+
     with open(args.output, 'w') as f_out:
-        f_out.writelines(generate_data(model=model, num_examples=args.num_examples, seed=args.random_seed))
+        f_out.write("\n".join(examples))
     
     print("Generation successful!")
 
