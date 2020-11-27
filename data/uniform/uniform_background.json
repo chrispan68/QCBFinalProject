@@ -29,11 +29,7 @@
         [
             {
                 "state": "<START>",
-                "prob": 0.8
-            },
-            {
-                "state": "<END>",
-                "prob": 0.2
+                "prob": 1.0
             }
         ]
     },
@@ -44,11 +40,7 @@
         [
             {
                 "state": "<START>",
-                "prob": 0.8
-            },
-            {
-                "state": "<END>",
-                "prob": 0.2
+                "prob": 1.0
             }
         ]
     },
@@ -59,11 +51,7 @@
         [
             {
                 "state": "<START>",
-                "prob": 0.8
-            },
-            {
-                "state": "<END>",
-                "prob": 0.2
+                "prob": 1.0
             }
         ]
     },
@@ -74,21 +62,6 @@
         [
             {
                 "state": "<START>",
-                "prob": 0.8
-            },
-            {
-                "state": "<END>",
-                "prob": 0.2
-            }
-        ]
-    },
-    "<END>":
-    {
-        "emission": "None",
-        "transitions":
-        [
-            {
-                "state": "<END>",
                 "prob": 1.0
             }
         ]

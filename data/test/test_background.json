@@ -1,0 +1,57 @@
+{
+    "<START>": 
+    {
+        "emission": "None", 
+        "transitions": 
+        [
+            {
+                "state": "GEN_T",
+                "prob": 1
+            }
+        ]
+    },
+    "GEN_A": 
+    {
+        "emission": "A", 
+        "transitions": 
+        [
+            {
+                "state": "<START>",
+                "prob": 1.0
+            }
+        ]
+    },
+    "GEN_T": 
+    {
+        "emission": "T", 
+        "transitions": 
+        [
+            {
+                "state": "<START>",
+                "prob": 1.0
+            }
+        ]
+    },
+    "GEN_G": 
+    {
+        "emission": "G", 
+        "transitions": 
+        [
+            {
+                "state": "<START>",
+                "prob": 1.0
+            }
+        ]
+    },
+    "GEN_C": 
+    {
+        "emission": "C", 
+        "transitions": 
+        [
+            {
+                "state": "<START>",
+                "prob": 1.0
+            }
+        ]
+    }
+}

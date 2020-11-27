@@ -7,10 +7,9 @@ def validate_model(model, eps = 1e-10):
     """ Validates that a given model is a valid markov model for generating DNA string data. 
     In particular, performs the following checks:
     1) There is a start state
-    2) There is an end state. 
-    3) In every state, the emissions are None, A, T, G or C. 
-    4) In every state the transition probabilities are positive numbers. 
-    5) In every state the transition probabilities sum to 1. 
+    2) In every state, the emissions are None, A, T, G or C. 
+    3) In every state the transition probabilities are positive numbers. 
+    4) In every state the transition probabilities sum to 1. 
 
     Returns an error message as to which check is failed. If return is None, then all checks are passed. 
 
@@ -22,17 +21,13 @@ def validate_model(model, eps = 1e-10):
     # First check: there is a start state
     if not "<START>" in model.keys():
         return "Model does not have a start state." 
-
-    # Second check: there is an end state
-    if not "<END>" in model.keys():
-        return "Model does not have an end state."
     
-    # Third check: in every state the emissions are None, A, T, G or C
+    # Second check: in every state the emissions are None, A, T, G or C
     for state in model.keys():
         if model[state]["emission"] not in ["None", "A", "T", "G", "C"]:
             return "Model emission for state " + state + " is " + model[state]["emission"] + " which is not one of None, A, T, G or C."
     
-    # Fourth check and fifth check: in every state the transition probabilities are positive numbers, also they sum to 1
+    # Third check and fourth check: in every state the transition probabilities are positive numbers, also they sum to 1
     for state in model.keys():
         sum = 0
         for trans in model[state]["transitions"]:
@@ -49,7 +44,7 @@ def validate_model(model, eps = 1e-10):
 
 
 
-def generate_data(model, num_examples, seed=1000):
+def generate_data(model, num_examples, length):
     """ Generates data given a model and the number of examples to be generated. 
     Returns a list of size num_examples, where each element is an independent generation. 
     This method does not validate the model, so make sure validate_model is called before. 
@@ -57,18 +52,20 @@ def generate_data(model, num_examples, seed=1000):
     Keyword arguments:
     model -- the model used for generation
     num_examples -- the number of generations to create. 
+    length -- how long the generated sequences will be. 
     seed -- optional argument to specify a random seed to be used. 
     """
-    random.seed(seed)
 
     output = [] # list of outputs for the total dataset. 
     for _ in range(num_examples):
         example_output = "" # stores the output for the current example
         cur_state = "<START>"
-        while cur_state != "<END>":
+        cur_length = 0
+        while cur_length < length:
             # emits if the state has an associated emission
             if not model[cur_state]["emission"] == "None":
                 example_output += model[cur_state]["emission"]
+                cur_length += 1
             states = []
             probs = []
             # transitions to the next state stochastically
@@ -79,18 +76,17 @@ def generate_data(model, num_examples, seed=1000):
             cur_state = random.choice(states, p=probs)
         output.append(example_output)
     return output
-            
-
-    
-
 
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--gen_model", type=str, help="Location of the Markov Model used to generate data. Should be a json file.")
     parser.add_argument("--num_examples", type=int, help="Number of reads to generate.", default=10000)
+    parser.add_argument("--length", type=int, help="Length per generation")
     parser.add_argument("--output", type=str, help="Location of the output file in a .txt format.", default="data.txt")
     parser.add_argument("--random_seed", type=int, help="Optional random seed to specify for generation.", default=1000)
     args = parser.parse_args()
+    
+    random.seed(args.random_seed)
 
     with open(args.gen_model) as f:
         model = json.load(f)
@@ -103,7 +99,7 @@ def main():
         return
 
     
-    examples = generate_data(model=model, num_examples=args.num_examples, seed=args.random_seed)
+    examples = generate_data(model=model, num_examples=args.num_examples, length=args.length)
 
     with open(args.output, 'w') as f_out:
         f_out.write("\n".join(examples))
