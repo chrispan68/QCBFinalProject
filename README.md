@@ -2,17 +2,8 @@
 
 ## Data
 
-Generates a data file from a markov model specified by a json file. 
+To generate data, we need a motif file (frequency matrix) and also a HMM model used for background data generation. 
 
-In the model.json file you must specify the states, as well as the transitions for each states and a possible emission at each state. 
+For example, run the following command to generate data with a motif 'ATATAT' placed into a uniform distribution:
 
-In the data/uniform_control_data directory there is an example model.json file along with a diagram that generates from a uniform distribution. 
-
-How to run the generation code: 
-
-python data/gen_data.py --gen_model data/uniform_control_data/model.json --num_examples 10 --output data/uniform_control_data/data.txt
-
-
-Use the following command to see all the arguments:
-
-python data/gen_data.py --help
+python gen_motif_data.py --motif_file uniform/motif.json --background_file uniform/uniform_background.json --num_examples 20 --length 5 --output uniform/data.txt
