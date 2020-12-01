@@ -58,7 +58,9 @@ def main():
     
     data = place_motif(backgrounds=generate_data(model=model, num_examples=args.num_examples, length=args.length), motif=motif, length=args.length)
     with open(args.output, 'w') as f_out:
-        f_out.write("\n".join(data))
+        for i, sample in enumerate(data):
+            f_out.write(">seq" + str(i) + "\n")
+            f_out.write(sample + "\n")
     
     print("Generation successful!")
 

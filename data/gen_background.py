@@ -7,7 +7,7 @@ def validate_model(model, eps = 1e-10):
     """ Validates that a given model is a valid markov model for generating DNA string data. 
     In particular, performs the following checks:
     1) There is a start state
-    2) In every state, the emissions are None, A, T, G or C. 
+    2) In every state, the emissions are None, A, T, G, C or R for trinucleotide repeat
     3) In every state the transition probabilities are positive numbers. 
     4) In every state the transition probabilities sum to 1. 
 
@@ -24,7 +24,7 @@ def validate_model(model, eps = 1e-10):
     
     # Second check: in every state the emissions are None, A, T, G or C
     for state in model.keys():
-        if model[state]["emission"] not in ["None", "A", "T", "G", "C"]:
+        if model[state]["emission"] not in ["None", "A", "T", "G", "C", "R"]:
             return "Model emission for state " + state + " is " + model[state]["emission"] + " which is not one of None, A, T, G or C."
     
     # Third check and fourth check: in every state the transition probabilities are positive numbers, also they sum to 1
@@ -102,7 +102,9 @@ def main():
     examples = generate_data(model=model, num_examples=args.num_examples, length=args.length)
 
     with open(args.output, 'w') as f_out:
-        f_out.write("\n".join(examples))
+        for i, sample in enumerate(examples):
+            f_out.write(">seq" + str(i) + "\n")
+            f_out.write(sample + "\n")
     
     print("Generation successful!")
 
