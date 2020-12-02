@@ -25,7 +25,7 @@ def validate_model(model, eps = 1e-10):
     # Second check: in every state the emissions are None, A, T, G or C
     for state in model.keys():
         if model[state]["emission"] not in ["None", "A", "T", "G", "C", "R"]:
-            return "Model emission for state " + state + " is " + model[state]["emission"] + " which is not one of None, A, T, G or C."
+            return "Model emission for state " + state + " is " + model[state]["emission"] + " which is not one of None, A, T, G, C. or R (tandem repeat)"
     
     # Third check and fourth check: in every state the transition probabilities are positive numbers, also they sum to 1
     for state in model.keys():
@@ -63,9 +63,15 @@ def generate_data(model, num_examples, length):
         cur_length = 0
         while cur_length < length:
             # emits if the state has an associated emission
-            if not model[cur_state]["emission"] == "None":
+            if model[cur_state]["emission"] in ["A", "T", "G", "C"]:
                 example_output += model[cur_state]["emission"]
                 cur_length += 1
+            elif model[cur_state]["emission"] == "R":
+                rep = example_output[-3:]
+                if(length - cur_length < 3):
+                    rep = rep[:length - cur_length]
+                example_output += rep
+                cur_length += 3
             states = []
             probs = []
             # transitions to the next state stochastically

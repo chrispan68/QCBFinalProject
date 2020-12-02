@@ -1,4 +1,5 @@
 import sys
+import os
 import json
 import argparse
 import random
@@ -31,21 +32,19 @@ def place_motif(backgrounds, motif, length):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--motif_file", type=str, help="Location of the motif file used to generate moddel. Should be a json file.")
-    parser.add_argument("--background_file", type=str, help="Location of the background distribution HMM model. Should be a json file.")
-    parser.add_argument("--num_examples", type=int, help="The number of examples generated", default=0)
-    parser.add_argument("--length", type=int, help="Length per generation")
-    parser.add_argument("--output", type=str, help="Location of the output data.", default="data.txt")
+    parser.add_argument("--dir", type=str, help="Directory for input / output files for motif generation.", default=None)
+    parser.add_argument("--num_examples", type=int, help="The number of examples generated", default=200)
+    parser.add_argument("--length", type=int, help="Length per generation", default=40)
     parser.add_argument("--random_seed", type=int, help="Optional random seed to specify for generation.", default=None)
     args = parser.parse_args()
 
     if args.random_seed is not None:
         random.seed(args.random_seed)
 
-    with open(args.motif_file) as f:
+    with open(os.path.join(args.dir, "motif.json")) as f:
         motif = json.load(f)
     
-    with open(args.background_file) as f:
+    with open(os.path.join(args.dir, "background.json")) as f:
         model = json.load(f)
     
     error = validate_model(model=model)
@@ -57,7 +56,7 @@ def main():
         return
     
     data = place_motif(backgrounds=generate_data(model=model, num_examples=args.num_examples, length=args.length), motif=motif, length=args.length)
-    with open(args.output, 'w') as f_out:
+    with open(os.path.join(args.dir, "data.fa"), 'w') as f_out:
         for i, sample in enumerate(data):
             f_out.write(">seq" + str(i) + "\n")
             f_out.write(sample + "\n")
