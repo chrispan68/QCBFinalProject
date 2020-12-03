@@ -86,9 +86,9 @@ def generate_data(model, num_examples, length):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--gen_model", type=str, help="Location of the Markov Model used to generate data. Should be a json file.")
-    parser.add_argument("--num_examples", type=int, help="Number of reads to generate.", default=10000)
-    parser.add_argument("--length", type=int, help="Length per generation")
-    parser.add_argument("--output", type=str, help="Location of the output file in a .txt format.", default="data.txt")
+    parser.add_argument("--num_examples", type=int, help="Number of reads to generate.", default=200)
+    parser.add_argument("--length", type=int, help="Length per generation", default=40)
+    parser.add_argument("--output", type=str, help="Location of the output file in a .fa format.", default="background.fa")
     parser.add_argument("--random_seed", type=int, help="Optional random seed to specify for generation.", default=1000)
     args = parser.parse_args()
     
