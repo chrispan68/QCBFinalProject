@@ -68,6 +68,10 @@ def scoreMotif(template, result, weightA, weightC, weightG, weightT):
 		currentScore = np.sum(score.to_numpy()/score.shape[0])
 		if(currentScore < bestScore):
 			bestScore = currentScore
+
+	# reset indices for larger
+	larger.index = range(0,longLen)
+
 	return bestScore
 
 def scoreAlignment(template, result):
@@ -75,9 +79,9 @@ def scoreAlignment(template, result):
 	return difference
 
 def main():
-	with open('long_motif/motif.json') as f:
+	with open('tandem_repeat/motif.json') as f:
 		template = pd.read_json(f)
-	with open('long_motif/memeBad.json') as f:
+	with open('tandem_repeat/meme.json') as f:
 		meme = pd.read_json(f)
 	score = scoreMotif(template, meme, 0.25, 0.25, 0.25, 0.25)
 	print(score)
