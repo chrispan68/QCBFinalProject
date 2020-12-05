@@ -19,18 +19,23 @@ def scoreAll():
 		qpms9 = pd.read_json(f)
 	with open('long_motif/GLAM2.json') as f:
 		glam2 = pd.read_json(f)
+	with open('long_motif/MotifSampler.json') as f:
+		motifsampler = pd.read_json(f)
 	memeScore = scoreMotif(template, meme, 0.25, 0.25, 0.25, 0.25)
 	gameScore = scoreMotif(template, game, 0.25, 0.25, 0.25, 0.25)
 	mitsuScore = scoreMotif(template, mitsu, 0.25, 0.25, 0.25, 0.25)
 	gemfaScore = scoreMotif(template, gemfa, 0.25, 0.25, 0.25, 0.25)
 	qpms9Score = scoreMotif(template, qpms9, 0.25, 0.25, 0.25, 0.25)
 	glam2Score = scoreMotif(template, glam2, 0.25, 0.25, 0.25, 0.25)
+	motifsamplerScore = scoreMotif(template, motifsampler, 0.25, 0.25, 0.25, 0.25)
+
 	print(memeScore)
 	print(gameScore)
 	print(mitsuScore)
 	print(gemfaScore)
 	print(qpms9Score)
 	print(glam2Score)
+	print(motifsamplerScore)
 
 def main():
 	scoreAll()
