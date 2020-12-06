@@ -12,12 +12,9 @@ def scoreAll():
 		print(variable)
 		with open(variable + '/motif.json') as f:
 			template = pd.read_json(f)
-		if(variable != 'tandem_repeat'):
-			with open(variable + '/meme.json') as f:
-				meme = pd.read_json(f)
-				memeScore = scoreMotif(template, meme, 0.25, 0.25, 0.25, 0.25)
-		else:
-			memeScore = float("nan")
+		with open(variable + '/meme.json') as f:
+			meme = pd.read_json(f)
+			memeScore = scoreMotif(template, meme, 0.25, 0.25, 0.25, 0.25)
 		with open(variable + '/GAME.json') as f:
 			game = pd.read_json(f)
 		if(variable != 'tandem_repeat'):
@@ -26,12 +23,9 @@ def scoreAll():
 				mitsuScore = scoreMotif(template, mitsu, 0.25, 0.25, 0.25, 0.25)
 		else:
 			mitsuScore = float("nan")
-		if(variable != 'tandem_repeat'):
-			with open(variable + '/qpms9.json') as f:
-				qpms9 = pd.read_json(f)
-				qpms9Score = scoreMotif(template, qpms9, 0.25, 0.25, 0.25, 0.25)
-		else:
-			qpms9Score = float("nan")
+		with open(variable + '/qpms9.json') as f:
+			qpms9 = pd.read_json(f)
+			qpms9Score = scoreMotif(template, qpms9, 0.25, 0.25, 0.25, 0.25)
 		with open(variable + '/GEMFA.json') as f:
 			gemfa = pd.read_json(f)
 		with open(variable + '/GLAM2.json') as f:
