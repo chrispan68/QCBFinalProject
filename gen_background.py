@@ -1,6 +1,7 @@
 import sys
 import json
 import argparse
+import os
 import numpy.random as random
 
 def validate_model(model, eps = 1e-10):
@@ -85,16 +86,13 @@ def generate_data(model, num_examples, length):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--gen_model", type=str, help="Location of the Markov Model used to generate data. Should be a json file.")
+    parser.add_argument("--dir", type=str, help="Directory for input / output files for motif generation.")
     parser.add_argument("--num_examples", type=int, help="Number of reads to generate.", default=200)
     parser.add_argument("--length", type=int, help="Length per generation", default=40)
-    parser.add_argument("--output", type=str, help="Location of the output file in a .fa format.", default="background.fa")
-    parser.add_argument("--random_seed", type=int, help="Optional random seed to specify for generation.", default=1000)
     args = parser.parse_args()
     
-    random.seed(args.random_seed)
 
-    with open(args.gen_model) as f:
+    with open(os.path.join(args.dir, "background.json")) as f:
         model = json.load(f)
     
     error = validate_model(model=model)
@@ -107,7 +105,7 @@ def main():
     
     examples = generate_data(model=model, num_examples=args.num_examples, length=args.length)
 
-    with open(args.output, 'w') as f_out:
+    with open(os.path.join(args.dir, "background.fa"), 'w') as f_out:
         for i, sample in enumerate(examples):
             f_out.write(">seq" + str(i) + "\n")
             f_out.write(sample + "\n")

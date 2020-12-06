@@ -35,11 +35,7 @@ def main():
     parser.add_argument("--dir", type=str, help="Directory for input / output files for motif generation.", default=None)
     parser.add_argument("--num_examples", type=int, help="The number of examples generated", default=200)
     parser.add_argument("--length", type=int, help="Length per generation", default=40)
-    parser.add_argument("--random_seed", type=int, help="Optional random seed to specify for generation.", default=None)
     args = parser.parse_args()
-
-    if args.random_seed is not None:
-        random.seed(args.random_seed)
 
     with open(os.path.join(args.dir, "motif.json")) as f:
         motif = json.load(f)
