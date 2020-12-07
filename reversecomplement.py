@@ -2,7 +2,7 @@ import pandas as pd
 
 def generateComplement(sequence):
 	sequence.columns = ['T', 'A', 'G', 'C']
-	sequence = sequence[::-1]
+	sequence = sequence[::-1].reset_index(drop=True)
 	return sequence
 
 def main():

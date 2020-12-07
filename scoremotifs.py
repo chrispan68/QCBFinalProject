@@ -3,6 +3,7 @@ import pandas as pd
 import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
+from reversecomplement import generateComplement
 
 # To be finished tomorrow (basically just call all of the functions)
 def scoreAll():
@@ -37,6 +38,10 @@ def scoreAll():
 		else:
 			motifsamplerScore = float("nan")
 		gameScore = scoreMotif(template, game, 0.25, 0.25, 0.25, 0.25)
+		reverseGame = generateComplement(game)
+		reverseGameScore = scoreMotif(template, reverseGame, 0.25, 0.25, 0.25, 0.25)
+		if(reverseGameScore < gameScore):
+			gameScore = reverseGameScore
 		gemfaScore = scoreMotif(template, gemfa, 0.25, 0.25, 0.25, 0.25)
 		glam2Score = scoreMotif(template, glam2, 0.25, 0.25, 0.25, 0.25)
 
