@@ -1,3 +1,5 @@
+# Written by Charlie Vrattos
+
 import pandas as pd
 
 def generateComplement(sequence):
